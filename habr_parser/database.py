@@ -1,13 +1,15 @@
 import asyncio
 import asyncpg
 
+import settings
+
 
 class Database:
-    def __init__(self, database, user, host='localhost', port='5432'):
-        self.database = database
-        self.user = user
-        self.host = host
-        self.port = port
+    def __init__(self):
+        self.database = settings.db_name
+        self.user = settings.db_user
+        self.host = settings.db_host
+        self.port = settings.db_port
 
     async def __aenter__(self):
         self.conn = await asyncpg.connect(host=self.host,
@@ -15,15 +17,13 @@ class Database:
                                           port=self.port,
                                           database=self.database,
                                           )
-        return self
+        return self.conn
 
     async def __aexit__(self, *args, **kwargs):
         await self.conn.close()
 
-    async def execute(self, query):
-        return await self.conn.fetchrow(query)
 
-
+# usage example
 # async def main():
-#     async with Database(database='habr_parser', user='andrey') as db:
-#         result = await db.execute()
+#     async with Database() as conn:
+#         result = await conn.fetch("""SELECT id,login FROM res_users""")
