@@ -2,7 +2,7 @@ from datetime import datetime
 from django.db import models
 
 
-class Hab(models.Model):
+class Hub(models.Model):
     name = models.CharField(max_length=200,
                             )
     url = models.URLField()
@@ -27,7 +27,7 @@ class Author(models.Model):
 
 
 class Post(models.Model):
-    hab = models.ForeignKey('Hab',
+    hub = models.ForeignKey('Hub',
                             on_delete=models.CASCADE,
                             )
     publish_date = models.DateTimeField()

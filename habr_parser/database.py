@@ -27,3 +27,8 @@ class Database:
 # async def main():
 #     async with Database() as conn:
 #         result = await conn.fetch("""SELECT id,login FROM res_users""")
+
+
+# if __name__ == '__main__':
+#     loop = asyncio.get_event_loop()
+#     loop.run_until_complete(main())
