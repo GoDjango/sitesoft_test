@@ -17,3 +17,15 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - postgres-db-data:/var/lib/postgresql/data/pgdata
+
+  django_admin:
+    build: ./habr_admin
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
+
+  parser:
+    build: ./habr_parser
+    depends_on:
+      - django_admin
